@@ -1,0 +1,71 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - LMouse</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    body{
+        background-image: url("{{ url_for('static', filename='backg.webp') }}");
+    }
+     @font-face {
+    font-family: 'F77';
+    src: url("{{ url_for('static', filename='F77.ttf') }}") format('truetype');
+    font-weight: normal;
+}
+    html { font-family: 'F77';}
+</style>
+<!-- Start -->
+<div class="welcome">
+ <center><img src="{{ url_for('static', filename='textlogo.webp') }}" /></center>
+    <center><img src="{{ url_for('static', filename='imglogo.webp') }}" class="levitate1" /></center>
+ <p>Добро пожаловать на игровой Майнкрафт-форум Mouse Moon!</p>
+ <div class="content">
+ <div class="row">
+ <div class="box box1">
+ <h2>О Форуме:</h2>
+ <p>Форум был создан в 2024 году в рамках проекта UniMice и предназначен для создания постов фанатами игры Minecraft и игроками сервера Mouse Moon</p>
+ </div>
+ <div class="box box2">
+ <h2>Правила Форума:</h2>
+ <ul style="list-style: none">
+ <li>1. Придерживайтесь тематики игры, все оффтоп-посты будут удалены администрацией!</li>
+ <li>2. Уважайте друг друга, Форум - место для помощи и поиска друзей, а не для споров!</li>
+ <li>3. Соблюдайте ограничение в 6000 символов на пост, слишком длиные посты будут удалены!</li>
+ </ul>
+ </div>
+ </div>
+ <div class="row">
+ <div class="box box3">
+ <h2>Как зайти на Форум?</h2>
+ <p>Если у Вас еще нет аккаунта - нажмите на кнопку "Зарегистрироваться", чтобы создать аккаунт на Форуме. Если у Вас уже есть аккаунт - нажмите на кнопку "Войти" и введите ваши данные.</p>
+ </div>
+ <div class="box">
+ <h2>Остались вопросы?</h2>
+ <p>Если у Вас остались вопросы, Вы можете обратиться к администрации на нашем <a href="https://discord.gg/unimice">Discord-сервере</a>.</p>
+ </div>
+ </div>
+ </div>
+</div>
+<div class="separator"><p><br></p></div>
+<!-- Fin -->
+
+<nav>
+<h1> - Mouse Moon Forum - </h1>
+<ul>
+    {% if g.user %}
+    <li><span>{{ g.user['username'] }}</span>
+    <li><a href="{{ url_for('auth.logout') }}">Выйти</a>
+    {% else %}
+    <li><a href="{{ url_for('auth.register') }}">Регистрация</a>
+    <li><a href="{{ url_for('auth.login') }}">Войти</a>
+    {% endif %}
+</ul>
+</nav>
+<section class="content">
+<header>
+    {% block header %}{% endblock %}
+</header>
+{% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+{% endfor %}
+{% block content %}{% endblock %}
+</section>
+
